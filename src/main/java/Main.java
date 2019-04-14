@@ -35,6 +35,10 @@ public class Main {
                 processListCommand();
                 continue;
             }
+            else if (command.startsWith("info ")) {
+                processInfoCommand(command.split(" "));
+                continue;
+            }
             printHelp();
         }
     }
@@ -92,5 +96,14 @@ public class Main {
     private static void processListCommand() {
         MemberListPrinter listPrinter = ctx.getBean("listPrinter", MemberListPrinter.class);
         listPrinter.printAll();
+    }
+
+    private static void processInfoCommand(String[] arg) {
+        if (arg.length != 2) {
+            printHelp();
+            return;
+        }
+        MemberInfoPrinter infoPrinter = ctx.getBean("infoPrinter", MemberInfoPrinter.class);
+        infoPrinter.printMemberInfo(arg[1]);
     }
 }
