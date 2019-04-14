@@ -2,9 +2,7 @@ package config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import spring.ChangePasswordService;
-import spring.MemberDao;
-import spring.MemberRegisterService;
+import spring.*;
 
 
 @Configuration
@@ -12,11 +10,13 @@ public class AppCtx {
 
     @Bean
     public MemberDao memberDao() {
+
         return new MemberDao();
     }
 
     @Bean
     public MemberRegisterService memberRegSvc() {
+
         return new MemberRegisterService(memberDao());
     }
 
@@ -27,4 +27,15 @@ public class AppCtx {
         return pwdSvc;
     }
 
+    @Bean
+    public MemberPrinter memeberPrinter() {
+
+        return new MemberPrinter();
+    }
+
+    @Bean
+    public MemberListPrinter listPrinter() {
+
+        return new MemberListPrinter(memberDao(), memeberPrinter());
+    }
 }
