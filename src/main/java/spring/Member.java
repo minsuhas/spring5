@@ -33,6 +33,7 @@ public class Member {
     }
 
     public String getPassword() {
+
         return password;
     }
 
