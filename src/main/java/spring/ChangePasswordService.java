@@ -7,7 +7,7 @@ public class ChangePasswordService {
     public void changePassword(String email, String oldPwd, String newPwd) {
         Member member = memberDao.selectByEmail(email);
         if (member == null)
-            throw new MemberNotFoundException();
+            throw new MemberNotFoundException("멤버가 없습니다.");
 
         member.changePassword(oldPwd, newPwd);
 
@@ -15,6 +15,7 @@ public class ChangePasswordService {
     }
 
     public void setMemberDao(MemberDao memberDao) {
+
         this.memberDao = memberDao;
     }
 }

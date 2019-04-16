@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MemberRegisterServiceTest {
 
@@ -16,6 +16,9 @@ public class MemberRegisterServiceTest {
 
     @Test
     public void testRegist() {
+
+        //given
+
         memberRegSvc = ctx.getBean("memberRegSvc", MemberRegisterService.class);
         memberDao = ctx.getBean("memberDao", MemberDao.class);
         RegisterRequest req = new RegisterRequest();
@@ -23,8 +26,17 @@ public class MemberRegisterServiceTest {
         req.setPassword("1234");
         req.setName("kimminsu");
 
+        //when
+
+        if (memberDao.selectByEmail("karosis28@gmail.com") != null) {
+            throw new DuplicateMemberException("dup email " + req.getEmail());
+        }
         this.id = memberRegSvc.regist(req);
 
-        assertEquals(this.id, memberDao.selectByEmail(req.getEmail()).getId());
+
+        //then
+
+        assertThat(this.id).isEqualTo(memberDao.selectByEmail(req.getEmail()).getId());
+
     }
 }
