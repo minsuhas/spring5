@@ -32,11 +32,6 @@ public class RegisterRequest {
         return confirmPassword;
     }
 
-    public void setConfirmPassword(String confirmPassword) {
-
-        this.confirmPassword = confirmPassword;
-    }
-
     public String getName() {
 
         return name;
@@ -46,6 +41,12 @@ public class RegisterRequest {
 
         this.name = name;
     }
+
+    public void setConfirmPassword(String confirmPassword) {
+
+        this.confirmPassword = confirmPassword;
+    }
+
 
     public boolean isPasswordEqualToConfirmPassword() {
 
