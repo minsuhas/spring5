@@ -8,7 +8,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.setRemoveAssertJRelatedElementsFromStackTrace;
 
 public class ChangePasswordServiceTest {
 

@@ -23,7 +23,10 @@ public class AppCtx {
     @Bean
     public ChangePasswordService changePwdSvc() {
         ChangePasswordService pwdSvc = new ChangePasswordService();
-        pwdSvc.setMemberDao(memberDao());
+        //pwdSvc.setMemberDao(memberDao());
+        //
+        // ChangePasswordService 클래스 멤버 memeberDao에 @Autowired 부여 함으로써
+        // 의존 자동주입, setMemberDao 메소드로 주입할 필요없음
         return pwdSvc;
     }
 
@@ -42,8 +45,11 @@ public class AppCtx {
     @Bean
     public MemberInfoPrinter infoPrinter() {
         MemberInfoPrinter infoPrinter = new MemberInfoPrinter();
-        infoPrinter.setMemberDao(memberDao());
-        infoPrinter.setPrinter(memeberPrinter());
+        //infoPrinter.setMemberDao(memberDao());
+        //infoPrinter.setPrinter(memeberPrinter());
+        //
+        // MemberInfoPrinter 클래스 setMemberDao, setPrinter 메소드에 @Autowired 부여
+
         return infoPrinter;
     }
 
