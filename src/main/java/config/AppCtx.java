@@ -39,7 +39,7 @@ public class AppCtx {
     @Bean
     public MemberListPrinter listPrinter() {
 
-        return new MemberListPrinter(memberDao(), memeberPrinter());
+        return new MemberListPrinter();
     }
 
     @Bean
