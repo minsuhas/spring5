@@ -1,5 +1,6 @@
 package config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import spring.*;
@@ -30,11 +31,26 @@ public class AppCtx {
         return pwdSvc;
     }
 
+//    @Bean
+//    public MemberPrinter memeberPrinter() {
+//
+//        return new MemberPrinter();
+//    }
+
     @Bean
-    public MemberPrinter memeberPrinter() {
+    @Qualifier("printer")
+    public MemberPrinter memeberPrinter1() {
 
         return new MemberPrinter();
     }
+
+    @Bean
+    public MemberPrinter memeberPrinter2() {
+
+        return new MemberPrinter();
+    }
+
+    // 같은 타입의 빈 객체가 두 개인 경우 @Qualifier 어노테이션을 사용하여 의존 객체 선택
 
     @Bean
     public MemberListPrinter listPrinter() {
