@@ -20,12 +20,13 @@ public class MemberListPrinter {
 
     @Autowired
     public void setMemberDao(MemberDao memberDao) {
+
         this.memberDao = memberDao;
     }
 
     @Autowired
-    @Qualifier("printer")  // Config 클래스에서 의존객체 설정
-    public void setPrinter(MemberPrinter printer) {
+    public void setPrinter(MemberSummaryPrinter printer) {
+
         this.printer = printer;
     }
 

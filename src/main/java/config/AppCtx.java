@@ -39,18 +39,17 @@ public class AppCtx {
 
     @Bean
     @Qualifier("printer")
-    public MemberPrinter memeberPrinter1() {
+    public MemberPrinter memberPrinter1() {
 
         return new MemberPrinter();
     }
 
     @Bean
-    public MemberPrinter memeberPrinter2() {
+    @Qualifier("summaryPrinter")
+    public MemberSummaryPrinter memberPrinter2() {
 
-        return new MemberPrinter();
+        return new MemberSummaryPrinter();
     }
-
-    // 같은 타입의 빈 객체가 두 개인 경우 @Qualifier 어노테이션을 사용하여 의존 객체 선택
 
     @Bean
     public MemberListPrinter listPrinter() {
@@ -62,7 +61,7 @@ public class AppCtx {
     public MemberInfoPrinter infoPrinter() {
         MemberInfoPrinter infoPrinter = new MemberInfoPrinter();
         //infoPrinter.setMemberDao(memberDao());
-        //infoPrinter.setPrinter(memeberPrinter());
+        infoPrinter.setPrinter(memberPrinter2());
         //
         // MemberInfoPrinter 클래스 setMemberDao, setPrinter 메소드에 @Autowired 부여
 
