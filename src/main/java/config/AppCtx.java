@@ -1,9 +1,10 @@
 package config;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import spring.*;
+
+import java.time.format.DateTimeFormatter;
 
 
 @Configuration
@@ -23,7 +24,7 @@ public class AppCtx {
 
     @Bean
     public ChangePasswordService changePwdSvc() {
-        ChangePasswordService pwdSvc = new ChangePasswordService();
+        ChangePasswordService pwdSvc = new ChangePasswordService(memberDao());
         //pwdSvc.setMemberDao(memberDao());
         //
         // ChangePasswordService 클래스 멤버 memeberDao에 @Autowired 부여 함으로써
@@ -31,37 +32,27 @@ public class AppCtx {
         return pwdSvc;
     }
 
-//    @Bean
-//    public MemberPrinter memeberPrinter() {
-//
-//        return new MemberPrinter();
-//    }
-
     @Bean
-    @Qualifier("printer")
-    public MemberPrinter memberPrinter1() {
+    public MemberPrinter memberPrinter() {
 
-        return new MemberPrinter();
+        return new MemberPrinter(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
     }
 
     @Bean
-    @Qualifier("summaryPrinter")
-    public MemberSummaryPrinter memberPrinter2() {
+    public MemberSummaryPrinter memberSummaryPrinter() {
 
-        return new MemberSummaryPrinter();
+        return new MemberSummaryPrinter(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
     }
 
     @Bean
     public MemberListPrinter listPrinter() {
 
-        return new MemberListPrinter();
+        return new MemberListPrinter(memberDao(), memberPrinter());
     }
 
     @Bean
     public MemberInfoPrinter infoPrinter() {
-        MemberInfoPrinter infoPrinter = new MemberInfoPrinter();
-        //infoPrinter.setMemberDao(memberDao());
-        infoPrinter.setPrinter(memberPrinter2());
+        MemberInfoPrinter infoPrinter = new MemberInfoPrinter(memberDao(), memberSummaryPrinter());
         //
         // MemberInfoPrinter 클래스 setMemberDao, setPrinter 메소드에 @Autowired 부여
 

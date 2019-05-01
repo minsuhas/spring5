@@ -1,6 +1,15 @@
 package spring;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.time.format.DateTimeFormatter;
+
 public class MemberSummaryPrinter extends MemberPrinter {
+
+    @Autowired
+    public MemberSummaryPrinter(DateTimeFormatter dateTimeFormatter) {
+        super(dateTimeFormatter);
+    }
 
     @Override
     public void print(Member member) {

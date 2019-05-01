@@ -6,9 +6,9 @@ import java.time.LocalDateTime;
 
 public class MemberRegisterService {
 
-    @Autowired
     private MemberDao memberDao;
 
+    @Autowired
     public MemberRegisterService(MemberDao memberDao) {
 
         this.memberDao = memberDao;

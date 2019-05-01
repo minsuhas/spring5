@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class ChangePasswordService {
 
-    @Autowired
-    private  MemberDao memberDao;
+    private MemberDao memberDao;
 
-    public void setMemberDao(MemberDao memberDao) {
+    @Autowired
+    public ChangePasswordService(MemberDao memberDao) {
 
         this.memberDao = memberDao;
     }
