@@ -1,50 +1,22 @@
 package config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import spring.*;
+import org.springframework.context.annotation.FilterType;
+import spring.MemberPrinter;
+import spring.VersionPrinter;
+
+import java.time.format.DateTimeFormatter;
 
 
 @Configuration
+@ComponentScan(basePackages = {"spring"}, excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "spring\\..*Printer"))
 public class AppCtx {
 
     @Bean
-    public MemberDao memberDao() {
-
-        return new MemberDao();
-    }
-
-    @Bean
-    public MemberRegisterService memberRegSvc() {
-
-        return new MemberRegisterService(memberDao());
-    }
-
-    @Bean
-    public ChangePasswordService changePwdSvc() {
-        ChangePasswordService pwdSvc = new ChangePasswordService();
-        pwdSvc.setMemberDao(memberDao());
-        return pwdSvc;
-    }
-
-    @Bean
-    public MemberPrinter memeberPrinter() {
-
-        return new MemberPrinter();
-    }
-
-    @Bean
-    public MemberListPrinter listPrinter() {
-
-        return new MemberListPrinter(memberDao(), memeberPrinter());
-    }
-
-    @Bean
-    public MemberInfoPrinter infoPrinter() {
-        MemberInfoPrinter infoPrinter = new MemberInfoPrinter();
-        infoPrinter.setMemberDao(memberDao());
-        infoPrinter.setPrinter(memeberPrinter());
-        return infoPrinter;
+    public MemberPrinter memberPrinter() {
+        return new MemberPrinter(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
     }
 
     @Bean
