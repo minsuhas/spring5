@@ -1,28 +1,44 @@
 package spring;
 
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.time.LocalDateTime;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class ChangePasswordServiceTest {
 
-    private ChangePasswordService changePasswordSvc;
-    private Member member;
     private MemberDao memberDao;
+    private ChangePasswordService changePasswordSvc;
+    private final String oldPassword = "1234";
+    private final String newPassword = "5678";
+    private final String email = "karosis28@gmail.com";
+
+    @Before
+    public void setUp() {
+        memberDao = new MemberDao();
+        changePasswordSvc = new ChangePasswordService(memberDao);
+    }
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void testChangePassword_기존에_등록된_멤버가_없을_때() {
         //given
 
-        member = new Member("karosis28@gmail.com","1234","kimminsu", LocalDateTime.now());
-        memberDao = new MemberDao();
-        changePasswordSvc = new ChangePasswordService(memberDao);
+        expectedException.expect(MemberNotFoundException.class);
+        expectedException.expectMessage("멤버가 없습니다.");
 
         //when
 
+        changePasswordSvc.changePassword(email,oldPassword,newPassword);
+
         //then
 
-        changePasswordSvc.changePassword("karosis28@gmail.com","1234","5678");
 
     }
 
@@ -30,17 +46,18 @@ public class ChangePasswordServiceTest {
     public void testChangePassword_기존에_등록된_멤버가_있을_때() {
         //given
 
-        member = new Member("karosis28@gmail.com","1234","kimminsu", LocalDateTime.now());
-        memberDao = new MemberDao();
-        changePasswordSvc = new ChangePasswordService(memberDao);
+        Member member = new Member(email, oldPassword,"kimminsu", LocalDateTime.now());
+        memberDao.insert(member);
 
         //when
 
-        memberDao.insert(member);
+        changePasswordSvc.changePassword(email, oldPassword, newPassword);
+        Member pwdChangedMember = memberDao.selectByEmail(email);
 
         //then
 
-        changePasswordSvc.changePassword("karosis28@gmail.com","1234","5678");
+        assertThat(pwdChangedMember.getEmail()).isEqualTo(email);
+        assertThat(pwdChangedMember.getPassword()).isEqualTo(newPassword);
 
     }
 
