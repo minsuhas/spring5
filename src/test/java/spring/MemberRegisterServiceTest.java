@@ -29,39 +29,6 @@ public class MemberRegisterServiceTest {
     }
 
     @Test
-    public void testRegist_Email을_가진_멤버가_없을_때() {
-        //given
-
-
-        //when
-
-        Member member = memberDao.selectByEmail(email);
-
-        //then
-
-        assertThat(member).isNull();
-
-    }
-
-    @Test
-    public void testRegist_Email을_가진_멤버가_있을_때() {
-        //given
-
-        Member member = new Member(email, password, name, LocalDateTime.now());
-
-        //when
-
-        memberDao.insert(member);
-        Member tmp_Member = memberDao.selectByEmail(email);
-
-        //then
-
-        assertThat(tmp_Member).isNotNull();
-        assertThat(tmp_Member.getEmail()).isEqualTo(email);
-
-    }
-
-    @Test
     public void testRegist_이미_등록된_Email이_없을_때() {
 
         //given
@@ -93,14 +60,13 @@ public class MemberRegisterServiceTest {
         expectedException.expectMessage("dup email " + email);
         Member member = new Member(email, password, name, LocalDateTime.now());
 
-
-        //when
-
         memberDao.insert(member);
 
         req.setEmail(email);
         req.setPassword(password);
         req.setName(name);
+
+        //when
 
         memberRegSvc.regist(req);
 

@@ -14,7 +14,7 @@ public class MemberTest {
     private Member member;
     private final String oldPassword = "1234";
     private final String newPassword = "5678";
-    private final String diffPassword = "5678";
+    private final String diffPassword = "0987";
 
     @Before
     public void setUp() {
@@ -36,7 +36,7 @@ public class MemberTest {
 
         //then
 
-        assertThat(member.getPassword()).isEqualTo("5678");
+        assertThat(member.getPassword()).isEqualTo(newPassword);
 
     }
 

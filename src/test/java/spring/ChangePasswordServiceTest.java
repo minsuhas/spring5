@@ -27,39 +27,6 @@ public class ChangePasswordServiceTest {
     }
 
     @Test
-    public void testChangePassword_Email을_가진_멤버가_없을_때() {
-        //given
-
-
-        //when
-
-        Member member = memberDao.selectByEmail(email);
-
-        //then
-
-        assertThat(member).isNull();
-
-    }
-
-    @Test
-    public void testChangePassword_Email을_가진_멤버가_있을_때() {
-        //given
-
-        Member member = new Member(email, oldPassword, "KIMMINSU", LocalDateTime.now());
-
-        //when
-
-        memberDao.insert(member);
-        Member tmp_Member = memberDao.selectByEmail(email);
-
-        //then
-
-        assertThat(tmp_Member).isNotNull();
-        assertThat(tmp_Member.getEmail()).isEqualTo(email);
-
-    }
-
-    @Test
     public void testChangePassword_기존에_등록된_멤버가_없을_때() {
         //given
 
