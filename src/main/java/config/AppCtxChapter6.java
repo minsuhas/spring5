@@ -2,6 +2,7 @@ package config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import spring.Client;
 import spring.Client2;
 
@@ -9,6 +10,7 @@ import spring.Client2;
 public class AppCtxChapter6 {
 
     @Bean
+    @Scope("prototype")
     public Client client() {
         Client client = new Client();
         client.setHost("host");
@@ -16,6 +18,7 @@ public class AppCtxChapter6 {
     }
 
     @Bean(initMethod = "connect", destroyMethod = "close")
+    @Scope("singleton")
     public Client2 client2() {
         Client2 client2 = new Client2();
         client2.setHost("host2");
