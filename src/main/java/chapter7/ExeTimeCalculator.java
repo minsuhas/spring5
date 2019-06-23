@@ -1,4 +1,6 @@
-package spring;
+package chapter7;
+
+import chapter7.Calculator;
 
 public class ExeTimeCalculator implements Calculator {
 

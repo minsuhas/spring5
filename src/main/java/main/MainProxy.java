@@ -1,8 +1,8 @@
 package main;
 
-import spring.ExeTimeCalculator;
-import spring.ImpeCalculator;
-import spring.RecCalculator;
+import chapter7.ExeTimeCalculator;
+import chapter7.ImpeCalculator;
+import chapter7.RecCalculator;
 
 public class MainProxy {
 

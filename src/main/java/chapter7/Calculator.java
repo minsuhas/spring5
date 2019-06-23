@@ -1,4 +1,4 @@
-package spring;
+package chapter7;
 
 public interface Calculator {
 
