@@ -8,7 +8,7 @@ import chapter7.Calculator;
 import chapter7.RecCalculator;
 
 @Configuration
-@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class AppCtxChapter7 {
 
     @Bean
